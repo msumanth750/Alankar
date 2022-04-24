@@ -1,0 +1,90 @@
+{% extends 'ui/base.html'%}
+{% load static%}
+
+{% block mainpage %}
+  <style>
+    #stock {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #stock td, #stock th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    #stock tr:nth-child(even){background-color: #f2f2f2;}
+    #stock tr:hover {background-color: #ddd;}
+    #stock th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color:  #ddccff;
+      color: red;
+      font-size: 15px;
+    }
+</style>
+
+  <div class="card mt-3">
+    <table id="stock">
+      <tr>
+            <th colspan="4"></th>
+            <th colspan="2"> Start Date : {{datea}}</th>
+            <th colspan="2"> End Date :{{dateb}}</th>
+
+          </tr>
+      <tr>
+        <th>Brand Name</th>
+        <th>Opening Stock</th>
+        <th>Receit</th>
+        <th>Total</th>
+        <th>Closing Stock</th>
+        <th>Sale</th>
+        <th>Rate</th>
+        <th>Amount</th>
+
+      </tr>
+      {% for data in datas %}
+      <tr>
+        <td>{{data.name}}</td>
+        <td>{{data.osa}}</td>
+        <td>{{data.rc}}</td>
+        <td>{{data.tt}}</td>
+        <td>{{data.osb}}</td>
+        <td>{{data.sold}}</td>
+        <td>{{data.price}}</td>
+        <td>{{data.total}}</td>
+      </tr>
+      {%endfor%}
+      <tr>
+        <th colspan="6"></th>
+        <th colspan="2">Total Sale :{{sale}}</th>
+      </tr>
+    </table>
+  </div>
+
+{% endblock %}
+
+{% block side %}
+    <div class="card mt-3">
+        <div class="card-body">
+          <form method="post">
+
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Start Date</span>
+              </div>
+              <input type="date" name="sdate" required id="id_sdate" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">End Date:</span>
+              </div>
+              <input type="date" name="edate" required id="id_edate" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit" name="button">Search</button>
+          </form>
+        </div>
+    </div>
+{% endblock %}

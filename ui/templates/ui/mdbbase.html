@@ -1,0 +1,57 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+    <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+
+</head>
+
+<body class="fixed-sn white-skin">
+  <!-- Main layout -->
+  <main>
+    {% block mainpage %}
+    {% endblock %}
+  </main>
+  <!-- Main layout -->
+
+  <!-- Footer -->
+  <footer class="page-footer pt-0 mt-5">
+
+    <!-- Copyright -->
+    <div class="footer-copyright py-3 text-center">
+      <div class="container-fluid">
+        © 2019 Copyright: <a href="" target="_blank"> MS Creations </a>
+
+      </div>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/data.json' %}"></script>
+  <!-- Custom scripts -->
+  {% block jsblock %}
+  {%endblock%}
+</body>
+
+</html>

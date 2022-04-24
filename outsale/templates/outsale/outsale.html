@@ -1,0 +1,134 @@
+{% extends 'ui/base.html'%}
+{% load static %}
+
+
+{% block mainpage %}
+<style>
+  #stock {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  #stock td, #stock th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  #stock tr:nth-child(even){background-color: #f2f2f2;}
+  #stock tr:hover {background-color: #ddd;}
+  #stock th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color:  #ddccff;
+    color: #660066;
+    font-size: 15px;
+  }
+  #price{
+    text-align: right;
+  }
+</style>
+<div class="card">     <!--Card content-->
+     <div class="card-body">
+       <table id="stock">
+         <tr>
+           <th colspan="7"><h2>Alankar Restaurant and Bar Sale Table</h2></th>
+           <th id='price'>{{date}}</th>
+         </tr>
+         <tr>
+           <th>ID</th>
+           <th>BRAND</th>
+           <th>OS</th>
+           <th>RC</th>
+           <th>CS</th>
+           <th>SALE</th>
+           <th>RATE</th>
+           <th>AMT</th>
+
+         </tr>
+         {% for sale in sales %}
+         <tr>
+           <td>{{sale.brand.ncode}}</td>
+           <td>{{sale.brand.name}}</td>
+           {%if sale.os is 0%}
+           <td>-</td>
+           {%else%}
+           <td>{{sale.os}}</td>
+           {%endif%}
+           {%if sale.rc is 0%}
+           <td>-</td>
+           {%else%}
+           <td>{{sale.rc}}</td>
+           {%endif%}
+           {%if sale.cs is 0%}
+           <td>-</td>
+           {%else%}
+           <td>{{sale.cs}}</td>
+           {%endif%}
+           {%if sale.s is 0%}
+           <td>-</td>
+           {%else%}
+           <td>{{sale.s}}</td>
+           {%endif%}
+           <td id='price'>{{sale.brand.bprice}}</td>
+           {%if sale.amt is 0%}
+           <td>-</td>
+           {%else%}
+           <td id='price'>{{sale.amt}}</td>
+           {%endif%}
+         </tr>
+
+         {%endfor%}
+         <tr>
+           <th colspan="6"></th>
+           <th>total :</th>
+           <th id='price'>{{salet}}/-</th>
+
+         </tr>
+       </table>
+     </div>
+   </div>
+
+{%endblock%}
+
+{% block side %}
+<div class="card">
+  <div class="card m-2">
+      <div class="card-body">
+        <form method="post">
+
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Start Date</span>
+            </div>
+            <input type="date" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          </div>
+          {% csrf_token %}
+              <button class="btn btn-sm btn-primary" type="submit" name="button">Search</button>
+        </form>
+      </div>
+  </div>
+
+</div>
+<div class="card mt-3">
+  <div class="card m-2">
+      <div class="card-body">
+        <form action="{%url 'salepdf'%}" method="post">
+
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Date</span>
+            </div>
+            <input type="date" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          </div>
+          {% csrf_token %}
+              <button class="btn btn-sm btn-primary" type="submit" name="button">View Pdf</button>
+        </form>
+      </div>
+  </div>
+
+</div>
+{%endblock%}
+
+{% block jsblock%}
+
+{%endblock%}

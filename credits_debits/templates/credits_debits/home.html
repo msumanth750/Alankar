@@ -1,0 +1,35 @@
+{% extends 'ui/base.html'%}
+{% load static %}
+
+
+{% block mainpage %}
+
+<table border="1px">
+  <tr>
+    <th>Name</th>
+    <th>Credit</th>
+    <th>Debit</th>
+  </tr>
+  {% for data in datas%}
+    <tr>
+      <td>{{data.name}}</td>
+      {% if data.type is 1 %}
+      <td>{{data.amt}}</td>
+      <td></td>
+      {% else %}
+      <td></td>
+      <td>{{data.amt}}</td>
+      {%endif%}
+    </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+
+
+{% block side %}
+{% endblock %}
+
+
+{% block jsblock%}
+{%endblock%}

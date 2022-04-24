@@ -1,0 +1,185 @@
+{% extends 'ui/base.html'%}
+{% load static %}
+{% block mainpage %}
+<style media="screen">
+
+.text{
+  color:red;
+  font-size:15px;
+}
+
+</style>
+<div class="card p-4">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Sales</h5>
+          <p class="text"><span>&#8377;</span> {{sales}}</p>
+          <a href="{% url 'outsale'%}" class="btn btn-secondary btn-sm">Details</a>
+          <a href="#!" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Stock</h5>
+          <p class="text"><span>&#8377;</span> {{stock}}</p>
+          <a href="{% url 'stock'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Expenditure</h5>
+          <p class="text"><span>&#8377;</span> {{exp}}</p>
+          <a href="{% url 'exp'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Loans</h5>
+          <p class="text"><span>&#8377;</span> {{loans}}</p>
+          <a href="{% url 'loan'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Credits</h5>
+          <p class="text"><span>&#8377;</span> {{credit}}</p>
+          <a href="{% url 'credits'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Discounts</h5>
+          <p class="text"><span>&#8377;</span> {{dis}}</p>
+          <a href="{% url 'mrpview'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="card mt-3 p-4">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Sales</h5>
+          <p class="text"><span>&#8377;</span> {{sales}}</p>
+          <a href="{% url 'outsale'%}" class="btn btn-secondary btn-sm">Details</a>
+          <a href="#!" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Stock</h5>
+          <p class="text"><span>&#8377;</span> {{stock}}</p>
+          <a href="{% url 'stock'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Expenditure</h5>
+          <p class="text"><span>&#8377;</span> {{exp}}</p>
+          <a href="{% url 'exp'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Loans</h5>
+          <p class="text"><span>&#8377;</span> {{loans}}</p>
+          <a href="{% url 'loan'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+
+        <div class="card-body">
+          <h5 class="card-title">Credits</h5>
+          <p class="text"><span>&#8377;</span> {{credit}}</p>
+          <a href="{% url 'credits'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Discounts</h5>
+          <p class="text"><span>&#8377;</span> {{dis}}</p>
+          <a href="{% url 'mrpview'%}" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+{% block side %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Stock Details</h5>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Brands {{total}}</h5>
+          <p class="text">Liquor :{{l}} </p>
+          <p class="text">Beer :{{b}} </p>
+          <p class="text">Misc :{{m}} </p>
+
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Bank Balance</h5>
+
+          <p class="text"><span>&#8377;</span> {{bb}}</p>
+          <a href="#!" class="btn btn-secondary btn-sm">Button</a>
+        </div>
+      </div>
+  </div>
+</div>
+
+{{t}}
+{{l}}
+
+{{b}}
+{{m}}
+
+
+{%endblock%}
+
+{% block jsblock%}
+
+{%endblock%}

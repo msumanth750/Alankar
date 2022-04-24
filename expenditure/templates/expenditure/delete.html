@@ -1,0 +1,76 @@
+{% extends 'ui/base.html'%}
+{% load static %}
+
+
+{% block mainpage %}
+<style media="screen">
+
+    #stock {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #stock td, #stock th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    #stock tr:nth-child(even){background-color: #f2f2f2;}
+    #stock tr:hover {background-color: #ddd;}
+    #stock th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color:  #ddccff;
+      color: black;
+      font-size: 15px;
+    }
+  th{
+    color:red;
+    font-weight: 900;
+  }
+  #amt{
+    text-align:right;
+  }
+</style>
+<div class="card">
+     <!--Card content-->
+     <div class="card-body">
+       <form  method="post">
+         {%csrf_token%}
+         <h4 class="card-title">{{exp.name}}/h4>
+         <!--Text-->
+         <p class="card-text">{{exp.amount}}{{exp.cdate}} {{exp.note}}</p>
+
+         <p class="card-text">Do you want to delete the Exp (if submitted cannot restored)</p>
+         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+         <button type="Submit" class="btn btn-danger btn-md">Delete</button>
+       </form>
+       <a href="{% url 'exp'%}" class="btn btn-danger btn-md">cancel</a>
+     </div>
+
+</div>
+{%endblock%}
+
+
+{% block side %}
+<div class="card">
+     <!--Card content-->
+     <div class="card-body">
+
+       <!--Title-->
+       <h4 class="card-title">Card title</h4>
+       <!--Text-->
+       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+         card's content.</p>
+       <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+       <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+     </div>
+
+</div>
+
+{%endblock%}
+
+
+{% block jsblock%}
+{%endblock%}

@@ -1,0 +1,92 @@
+{% extends 'ui/base.html'%}
+{% load static %}
+
+
+{% block mainpage %}
+  <style>
+    #stock {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #stock td, #stock th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    #stock tr:nth-child(even){background-color: #f2f2f2;}
+    #stock tr:hover {background-color: #ddd;}
+    #stock th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color:  #ddccff;
+      color: black;
+      font-size: 15px;
+    }
+    #price{
+      text-align: right;
+      color: red;
+    }
+</style>
+
+  <div class="card mt-3">
+    <table id="stock">
+      <tr>
+
+        <th colspan="8"><h2>Alankar Restaurant and Bar Brand Table</h2></th>
+
+      </tr>
+      <tr>
+        <th>N.Code</th>
+        <th>Name</th>
+        <th>S.Code</th>
+        <th>Type</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Action</th>
+        <th>Action</th>
+      </tr>
+      {% for brand in brands %}
+      <tr>
+        <td>{{brand.ncode}}</td>
+        <td>{{brand.name}}</td>
+        <td>{{brand.scode}}</td>
+        <td>{{brand.type}}</td>
+        <td id="price">{{brand.qty}}</td>
+        <td id="price">{{brand.price}} /-</td>
+        <td>Edit<i class="far fa-edit"></i></td>
+        <td>Delete<i class="fas fa-minus"></i></td>
+      </tr>
+      {%endfor%}
+
+    </table>
+  </div>
+
+{% endblock %}
+
+{% block side %}
+    <div class="card mt-3">
+        <div class="card-body">
+          <form method="post">
+
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Start Date</span>
+              </div>
+              <input type="date" name="sdate" required id="id_sdate" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">End Date:</span>
+              </div>
+              <input type="date" name="edate" required id="id_edate" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit" name="button">Search</button>
+          </form>
+        </div>
+    </div>
+{% endblock %}
+{% block jsblock%}
+{%endblock%}

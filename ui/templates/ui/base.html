@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{%load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Alankar</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <style media="screen">
+      body {
+        background-color: linear-gradient(red, yellow);
+      }
+      h1 {
+        margin-left: 14px;
+      }
+      canvas {
+		      -moz-user-select: none;
+		        -webkit-user-select: none;
+		          -ms-user-select: none;
+	           }
+    </style>
+    <script type="text/javascript" src ="{%static 'js/chart.js'%}"></script>
+    <script type="text/javascript" src ="{%static 'js/utils.js'%}"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <!--Navbar -->
+    <nav class="mb-2 navbar navbar-expand-lg navbar-light silver lighten-1">
+      <a class="navbar-brand" href="/">Alankar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+        aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="/">Home
+              <!--<span class="sr-only">(current)</span>-->
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/brands">Brands</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/exp">Expenditure</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/stocks">Stock</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/receits">Receits</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/outsale">Outsales</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/loans">Loans</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Others
+            </a>
+            <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
+              <a class="dropdown-item" href="/credits">Credits</a>
+              <a class="dropdown-item" href="/rootlocus">Dealers</a>
+              <a class="dropdown-item" href="/bode">Official Contacts</a>
+              <a class="dropdown-item" href="/polar">Partners</a>
+              <a class="dropdown-item" href="/nyquist">Backup</a>
+
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'home'%}">Home</a>
+          </li>
+        </ul>
+
+      </div>
+      </nav>
+      <div class="row">
+        <div class=" col-lg-3 ">
+            {% block side %}
+            {% endblock %}
+        </div>
+        <div class="col-lg-9">
+            {% block mainpage %}
+            {% endblock %}
+        </div>
+       </div>
+  </div>
+
+
+  </body>
+  <!-- JQuery -->
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <script type="text/javascript">
+      $('.grid').masonry({
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-sizer',
+        percentPosition: true
+      });
+    </script>
+
+    <script type="text/javascript">
+    {% block jsblock%}
+    {%endblock%}
+    </script>
+</html>

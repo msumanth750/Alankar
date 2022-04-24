@@ -1,0 +1,49 @@
+Alankar Restaurant and Bar Sale Table
+ID	BRAND	OS	RC	CS	SALE	RATE	AMT
+1	100 Pipers 750	48	4	9	43	2300	98900
+2	Teachers 1000	24	4	11	17	2300	39100
+3	Black & White Cats	-	-	-	-	-	-
+7	Blenders Pride 750	35	2	29	8	1400	11200
+8	Blenders Pride 1000	47	9	8	48	1950	93600
+9	Signature 750	16	6	16	6	1400	8400
+10	Signature 1000	32	5	17	20	1950	39000
+11	Royal Challenge 750	13	4	26	-9	1160	-10440
+12	Royal Challenge 1000	33	5	14	24	1680	40320
+13	Royal Green 750	27	10	28	9	1020	9180
+14	Royal Stag 750	36	1	10	27	1020	27540
+15	Royal Stag 1000	14	10	22	2	1360	2720
+21	MC Diet 750	23	6	8	21	810	17010
+22	MC Diet 1000	19	2	14	7	1080	7560
+23	Imperial Blue 750	14	9	22	1	810	810
+24	Imperial Blue 1000	30	2	21	11	1080	11880
+25	Officers Choice 750	44	4	32	16	680	10880
+26	Manshion House (B) 750	12	11	39	-16	810	-12960
+27	Manshion House (B) 1000	29	1	12	18	1080	19440
+28	Breezer 275	20	9	13	16	160	2560
+29	Cheap 1000	35	5	13	27	640	17280
+30	Magic Moments 750	22	3	7	18	1020	18360
+31	White MS chef 750	16	12	17	11	810	8910
+32	Madeera Wine 750	47	-	20	27	1020	27540
+50	KF LITE BEER 650	12	5	29	-12	160	-1920
+51	KF Strong beer 650	45	11	20	36	170	6120
+52	KF Lite beer 350	13	-	7	6	120	720
+53	KF Strong beer 350	44	3	8	39	130	5070
+54	Knock Out Beer	19	2	11	10	170	1700
+55	Budweiser Beer	17	5	20	2	240	480
+56	KF Ultra Beer	21	4	23	2	240	480
+57	Budweiser Tins	-	-	-	-	-	-
+58	Ultra Tins	-	-	-	-	-	-
+70	SODA	49	6	19	36	20	720
+71	Cool Drinks	43	10	25	28	25	700
+72	Mineral Water 1000ml	32	8	6	34	25	850
+73	Mineral Water 500ml	34	10	7	37	10	370
+74	Appy Fiz	-	-	-	-	-	-
+total :	504080/-
+Alankar Restaurant and Bar OutSale Table
+code	Brand	Quantity	Rate	Issued to	Date	Discount	Updated date
+25	Officers Choice 750	3	500	Customer	April 20, 2022	540	April 20, 2022
+23	Imperial Blue 750	4	620	zender	April 20, 2022	760	April 21, 2022
+25	Officers Choice 750	10	500	Jvk reddy	April 20, 2022	1800	April 20, 2022
+1	100 Pipers 750	2	1750	Raj Uncle	April 23, 2022	1100	April 23, 2022
+9	Signature 750	5	1100	Raj Uncle Father	April 23, 2022	1500	April 23, 2022
+Discount :	5700/-

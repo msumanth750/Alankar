@@ -1,0 +1,44 @@
+{% extends 'ui/base.html'%}
+{% load static %}
+
+
+{% block mainpage %}
+<div class="card p-3">
+
+  {{tb}} Brands 
+  {% for stock in stocks %}
+  <div class="card mb-3">
+       <!--Card content-->
+       <div class="card-body">
+         <h6 class="card-title">{{stock.brand.name}}</h6>
+    <div class="progress " style="height: 19px;">
+    <div
+      class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+      role="progressbar"
+      aria-valuenow="{{stock.obal}}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      style="width: {{stock.obal}}%;"
+    >{{stock.obal}}</div>
+  </div>
+  </div>
+  </div>
+  {%endfor%}
+</div>
+{%endblock%}
+
+{% block side %}
+<div class="card p-2">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Notification</h5>
+      {% for min in mins %}
+      <p class="card-text">{{min.brand.name}} : only <a style="color:red;font-size:20px;"> {{min.obal}} </a> Left </p>
+
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+{%endblock%}

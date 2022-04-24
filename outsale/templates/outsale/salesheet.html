@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      table, th, td {
+  border: 2px white;
+  font-size: 25px;
+}
+    </style>
+  </head>
+
+  <body>
+    <form class="" action="{%url 'dailysheet'%}" method="post">
+      {%csrf_token%}
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Start Date</span>
+        </div>
+        <input type="date" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+      </div>
+      <button type="submit" name="button">submit</button>
+    </form>
+    <div class="row">
+      <div class="col-5">
+        <table>
+          <tr>
+            <th colspan="7"><h2>Alankar Restaurant and Bar Sale Table</h2></th>
+            <th id='price'>{{date}}</th>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <th>BRAND</th>
+            <th>OS</th>
+            <th>RC</th>
+            <th>CS</th>
+            <th>SALE</th>
+            <th>RATE</th>
+            <th>AMT</th>
+
+          </tr>
+        {%for sale in sales.sales %}
+        <tr>
+          <td>{{sale.brand.ncode}}</td>
+          <td>{{sale.brand.name}}</td>
+          {%if sale.os is 0%}
+          <td>-</td>
+          {%else%}
+          <td>{{sale.os}}</td>
+          {%endif%}
+          {%if sale.rc is 0%}
+          <td>-</td>
+          {%else%}
+          <td>{{sale.rc}}</td>
+          {%endif%}
+          {%if sale.cs is 0%}
+          <td>-</td>
+          {%else%}
+          <td>{{sale.cs}}</td>
+          {%endif%}
+          {%if sale.s is 0%}
+          <td>-</td>
+          {%else%}
+          <td>{{sale.s}}</td>
+          {%endif%}
+          {%if sale.s is 0 %}
+          <td>-</td>
+          {%else%}
+          <td id='price'>{{sale.brand.bprice}}</td>
+          {%endif%}
+          {%if sale.amt is 0%}
+          <td>-</td>
+          {%else%}
+          <td id='price'>{{sale.amt}}</td>
+          {%endif%}
+        </tr>
+        {%endfor%}
+        <tr>
+          <th colspan="6"></th>
+          <th>total :</th>
+          <th id='price'>{{sales.salet}}/-</th>
+
+        </tr>
+      </table>
+      </div>
+      <div class="col-7">
+        <div class="card">     <!--Card content-->
+             <div class="card-body">
+               <table id="stock">
+                 <tr>
+                   <th colspan="7"><h2>Alankar Restaurant and Bar OutSale Table</h2></th>
+                  </tr>
+                 <tr>
+                   <th>Date</th>
+                   <th>code</th>
+                   <th>Brand</th>
+                   <th>Quantity</th>
+                   <th>Rate</th>
+                   <th>Issued to</th>
+                   <th>Discount</th>
+                 </tr>
+                 {% for sale in outsales.sales %}
+                 <tr>
+                   <td>{{sale.date}}</td>
+                   <td>{{sale.brand.ncode}}</td>
+                   <td>{{sale.brand.name}}</td>
+                   <td>{{sale.qty}}</td>
+                   <td>{{sale.price}}</td>
+                   <td>{{sale.name}}</td>
+                   <td>{{sale.dis}}</td>
+                 </tr>
+
+                 {%endfor%}
+                 <tr>
+                   <th colspan="4"></th>
+                   <th>Discount :</th>
+                   <th colspan="2" id='price'>{{outsales.discount}}/-</th>
+
+                 </tr>
+               </table>
+               <h2>sale :</h2>
+             </div>
+           </div>
+      </div>
+    </div>
+</body>
+
+</html>

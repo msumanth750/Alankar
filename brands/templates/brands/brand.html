@@ -1,0 +1,131 @@
+{% extends 'ui/base.html'%}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block mainpage %}
+<style>
+  .stock {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .stock td, #stock th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  .stock tr:nth-child(even){background-color: #f2f2f2;}
+  .stock tr:hover {background-color: #ddd;}
+  .stock th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:  #ddccff;
+    color: black;
+    font-size: 15px;
+  }
+  #price{
+    text-align: right;
+    color: red;
+  }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<div class="card">
+     <!--Card content-->
+     <div class="card-body">
+       <div class="form-outline">
+          <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search" />
+          <label class="form-label" for="typeText">Enter The Brand Name</label>
+        </div>
+       <table id="myTable" class="stock">
+         <tr>
+           <th colspan="8"><h2>Alankar Restaurant and Bar Brand Table</h2></th>
+         </tr>
+         <tr>
+           <th>ID</th>
+           <th>Name</th>
+           <th>S.Code</th>
+           <th>Type</th>
+           <th>Price</th>
+           <th>Qty</th>
+           <th>MRP</th>
+           <th>Bar Price</th>
+         </tr>
+         {% for brand in brands %}
+         <tr>
+           <td><a href="edit/{{brand.id}}">{{brand.ncode}}</a></td>
+           <td>{{brand.name}}</td>
+           <td>{{brand.scode}}</td>
+           <td>{{brand.type}}</td>
+           <td>{{brand.price}}</td>
+           <td>{{brand.qty}}</td>
+           <td>{{brand.mrp}}</td>
+           <td>{{brand.bprice}}</td>
+         </tr>
+         {%endfor%}
+       </table>
+     </div>
+   </div>
+{%endblock%}
+
+{% block side %}
+<div class="card">
+  <!-- Button to Open the Modal -->
+  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal">
+    Add Brand
+  </button>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form class="" action="{% url 'addbrand' %}" method="post">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">New Brand Addition</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+          {%csrf_token%}
+          {{form|crispy}}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" name="button">submit</button>
+        <button type="submit" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+  </form>
+    </div>
+  </div>
+</div>
+
+
+
+{%endblock%}
+
+{%block jsblock%}
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+{%endblock%}
