@@ -6,5 +6,4 @@ urlpatterns = [
     path('pdf',views.PdfView.as_view(),name='salepdf'),
     path('mrp',views.mrpview,name='mrpview'),
     path('salesheet',views.dailysheet,name='dailysheet'),
-
 ]

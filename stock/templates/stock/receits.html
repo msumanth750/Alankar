@@ -39,8 +39,11 @@
       <tr>
 
         <th colspan="3"><h2>Alankar Restaurant and Bar Stock Table</h2></th>
-        <th colspan="2"><h5>{{date}}</h5></th>
-
+        {%if date%}
+        <th colspan="2"><h5><a href="{%url 'receitentry' date%}">{{date}}</a></h5></th>
+        {%else%}
+        <th colspan="2"></th>
+        {%endif%}
       </tr>
       <tr>
         <th>Date</th>

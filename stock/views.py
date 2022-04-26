@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Brand,Stock,Receits
 from django.views import View
 
-from .forms import StockForm,DateForm
+from .forms import StockForm,DateForm,StockentryForm
 from core.utils import render_to_pdf
 from django.http import HttpResponse
 from brands import models as mb
@@ -88,16 +88,15 @@ def stock(request):
     return render(request,'stock/stock.html',{'stocks':stocks,'form':form,'date':today.strftime('%Y-%m-%d')})
 
 def receit(request):
-    form=DateForm(request.POST)
+    form=DateForm()
     today =datetime.date.today()
     receits=Receits.objects.all().filter(date=today)
     if request.method=='POST':
-        form= DateForm(request.POST)
-        input =strtodate(form['date'].value())
+        input =strtodate(request.POST['date'])
         receits =Receits.objects.all().filter(date=input)
-        return render(request,'stock/receits.html',{'receits':receits,'form':form,'date':input.strftime('%Y-%m-%d')})
+        return render(request,'stock/receits.html',{'receits':receits,'date':input.strftime('%Y-%m-%d'),'datea':input})
 
-    return render(request,'stock/receits.html',{'receits':receits,'form':form})
+    return render(request,'stock/receits.html',{'receits':receits})
 
 class PdfReceit(View):
     def get(self,request,*args,**kwargs):
@@ -109,3 +108,54 @@ class PdfReceit(View):
         receits=Receits.objects.all().filter(date=date)
         pdf = render_to_pdf('stock/receitpdf.html',{'receits':reversed(receits),'date':date.strftime('%Y-%m-%d')})
         return HttpResponse(pdf,content_type='application/pdf')
+
+
+def stockEntry(request,pk):
+    #today =datetime.date.today().strftime('%Y-%m-%d')
+    today = (pk)
+    brandsa = mb.Brand.objects.all().order_by('ncode')
+    stock = Stock.objects.all().filter(date=strtodate(today))
+    brandsb = mb.Brand.objects.exclude(id__in=[st.brand.id for st in stock])
+    if request.method == "POST":
+        date=strtodate(request.POST['date'])
+        brand=request.POST['brand']
+        brandi = mb.Brand.objects.get(id=brand)
+        obal = request.POST['obal']
+        try:
+            s=Stock.objects.get(date=date,brand=brandi)
+            s.date=date
+            s.brand=brandi
+            s.obal=obal
+            s.save()
+        except Stock.DoesNotExist:
+            s=Stock(date=date,brand=brandi,obal=obal)
+            s.save()
+        stock = Stock.objects.all().filter(date=strtodate(today))
+        brandsb = mb.Brand.objects.exclude(id__in=[st.brand.id for st in stock]).order_by('ncode')
+        return render(request,'stock/stockentry.html',{'brandsa':brandsa,'brandsb':brandsb,'stocks':stock,'date':today})
+    return render(request,'stock/stockentry.html',{'brandsa':brandsa,'brandsb':brandsb,'stocks':stock,'date':today})
+
+def receitEntry(request,pk):
+    #today =datetime.date.today().strftime('%Y-%m-%d')
+    today = (pk)
+    brandsa = mb.Brand.objects.all().order_by('ncode')
+    receits = Receits.objects.all().filter(date=strtodate(today))
+    brandsb = mb.Brand.objects.exclude(id__in=[st.brand.id for st in receits])
+    if request.method == "POST":
+        date=strtodate(request.POST['date'])
+        brand=request.POST['brand']
+        brandi = mb.Brand.objects.get(id=brand)
+        qty = request.POST['qty']
+        try:
+            s=Receits.objects.get(date=date,brand=brandi)
+            s.date=date
+            s.brand=brandi
+            s.qty=qty
+            s.save()
+        except Receits.DoesNotExist:
+            s=Receits(date=date,brand=brandi,qty=qty)
+            s.save()
+        receits = Receits.objects.all().filter(date=strtodate(today))
+        brandsb = mb.Brand.objects.exclude(id__in=[st.brand.id for st in receits]).order_by('ncode')
+        return render(request,'stock/receitentry.html',{'brandsa':brandsa,'brandsb':brandsb,'receits':receits,'date':today})
+    return render(request,'stock/receitentry.html',{'brandsa':brandsa,'brandsb':brandsb,'receits':receits,'date':today})

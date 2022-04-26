@@ -77,14 +77,31 @@
 <div class="card">
      <!--Card content-->
      <div class="card-body">
+       <a class="btn btn-sm" href="{%url 'expadd'%}">Go Exp</a>
 
        <!--Title-->
-       <h4 class="card-title">Card title</h4>
-       <!--Text-->
-       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-         card's content.</p>
-       <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-       <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+       <h4 class="card-title">Add Expenditure</h4>
+       <form class="" action="{%url 'expadd'%}" method="post">
+         {%csrf_token%}
+         <div class="form-outline">
+          <input type="date" id="formControlSm" name="date" class="form-control form-control-sm" />
+          <label class="form-label" for="formControlSm">Date</label>
+        </div>
+        <div class="form-outline">
+         <input type="text" id="formControlSm" name="name" class="form-control form-control-sm" />
+         <label class="form-label" for="formControlSm">Name</label>
+       </div>
+       <div class="form-outline">
+        <input type="number" id="formControlSm" name="amount" class="form-control form-control-sm" />
+        <label class="form-label" for="formControlSm">Amount</label>
+      </div>
+      <div class="form-outline">
+       <input type="textarea" id="formControlSm" name="note" class="form-control form-control-sm" />
+       <label class="form-label" for="formControlSm">Notes</label>
+     </div>
+     <button type="submit" class="btn btn-light-blue btn-md">Submit</button>
+
+       </form>
 
      </div>
 

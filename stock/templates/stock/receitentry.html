@@ -1,0 +1,119 @@
+{%extends 'ui/bootstrap4.html'%}
+{%load static%}
+{%block content%}
+<style media="screen">
+    * {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 2px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+th,td{
+  font-size: 15px;
+}
+td input {
+  font-size: 15px;
+}
+h1{
+  font-size: 40px;
+  color: red;
+  text-align: center;
+}
+
+    </style>
+
+    <div class="row">
+      <h1>Receit entry Form{{date}}</h1>
+      <form class="" action="{%url 'receits'%}" method="POST">
+          {%csrf_token%}
+          <input type="text" name="date" value="{{date}}" hidden>
+          <button type="submit" name="button">Back</button>
+      </form>
+
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <table>
+
+          <tr>
+            <th>Brand</th>
+            <th colspan="2">Form Entry</th>
+          </tr>
+          {% for brand in brandsb %}
+          <tr>
+            <td>{{brand.name}}</td>
+            <td colspan="2">
+              <form id="my_form" action="{%url 'receitentry' date%}" method="post">
+                {% csrf_token%}
+              <input type="text" name="date" value="{{date}}"hidden>
+              <input type="text" name="brand" value="{{brand.id}}" hidden>
+              <input type="number" name="qty" value="">
+              <button class="btn btn-sm btn-secondary" type="submit" name="button" >Submit</button>
+            </form>
+            </td>
+          </tr>
+          {%endfor%}
+        </table>
+      </div>
+      <div class="column">
+        <table>
+
+          <tr>
+            <th>Brand</th>
+            <th colspan="2">Form Entry</th>
+          </tr>
+          {% for brand in brandsa %}
+          {% for receit in receits %}
+          {%if receit.brand.id is brand.id%}
+          <tr>
+            <td>{{brand.name}}</td>
+            <td colspan="2">
+              <form id="my_form" action="{%url 'receitentry' date %}" method="post">
+                {% csrf_token%}
+              <input type="text" name="date" value="{{date}}"hidden>
+              <input type="text" name="brand" value="{{brand.id}}" hidden>
+              <input type="number" name="qty" value="{{receit.qty}}">
+              <button class="btn btn-sm btn-secondary"type="submit" name="button" >Submit</button>
+            </form>
+            </td>
+          </tr>
+          {%endif%}
+          {%endfor%}
+          {%endfor%}
+        </table>
+
+      </div>
+    </div>
+  {%endblock%}

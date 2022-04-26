@@ -5,6 +5,10 @@ urlpatterns = [
     path('',views.dashboard),
     path('brand/',views.brands),
     path('stocks/',views.stock,name='stock'),
-    path('receits/',views.receit),
-    path('receits/rpdf/',views.PdfReceit.as_view(),name="receitpdf")
+    path('receits/',views.receit,name='receits'),
+    path('receits/rpdf/',views.PdfReceit.as_view(),name="receitpdf"),
+    path('stockentry/<str:pk>/',views.stockEntry,name='stockentry'),
+    path('receitentry/<str:pk>/',views.receitEntry,name='receitentry'),
+
+
 ]

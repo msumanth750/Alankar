@@ -4,6 +4,7 @@ from django.db import models
 
 class Exp(models.Model):
     #created date
+    date = models.DateField()
     cdate = models.DateField(auto_now_add=True)
     #updated datea
     udate = models.DateField(auto_now=True)

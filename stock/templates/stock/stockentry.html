@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style media="screen">
+    * {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+      th,td{
+        font-size: 15px;
+      }
+      td input {
+        font-size: 15px;
+      }
+      h1{
+        font-size: 40px;
+        color: red;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="container-fluid">
+
+    <div class="row">
+      <div class="column">
+        <table>
+          <tr>
+            <th>{{date}}</th>
+            <th colspan="3"><h1>Stock Entry Form </h1></th>
+
+          </tr>
+          <tr>
+            <th>Brand</th>
+            <th colspan="3">Form Entry</th>
+          </tr>
+          {% for brand in brandsb %}
+          <tr>
+            <td>{{brand.name}}</td>
+            <td colspan="3">
+              <form id="my_form" action="{%url 'stockentry' date%}" method="post">
+                {% csrf_token%}
+              <input type="text" name="date" value="{{date}}"hidden>
+              <input type="text" name="brand" value="{{brand.id}}" hidden>
+              <input type="number" name="obal" value="{{stock.obal}}">
+              <button class="btn btn-sm btn-secondary" type="submit" name="button" >Submit</button>
+            </form>
+            </td>
+          </tr>
+          {%endfor%}
+        </table>
+      </div>
+      <div class="column">
+        <table>
+          <tr>
+            <th>{{date}}</th>
+            <th colspan="3"><h1>Stock Entry Form </h1></th>
+
+          </tr>
+          <tr>
+            <th>Brand</th>
+            <th colspan="3">Form Entry</th>
+          </tr>
+          {% for brand in brandsa %}
+          {% for stock in stocks %}
+          {%if stock.brand.id is brand.id%}
+          <tr>
+            <td>{{brand.name}}</td>
+            <td colspan="3">
+              <form id="my_form" action="{%url 'stockentry' date %}" method="post">
+                {% csrf_token%}
+              <input type="text" name="date" value="{{date}}"hidden>
+              <input type="text" name="brand" value="{{brand.id}}" hidden>
+              <input type="number" name="obal" value="{{stock.obal}}">
+              <button class="btn btn-sm btn-secondary"type="submit" name="button" >Submit</button>
+            </form>
+            </td>
+          </tr>
+          {%endif%}
+          {%endfor%}
+          {%endfor%}
+        </table>
+
+      </div>
+    </div>
+  </body>
+</html>

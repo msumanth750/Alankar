@@ -7,6 +7,7 @@ from .models import Outsale
 from brands import models as bm
 from stock import models as sm
 from expenditure import models as em
+from expenditure.views import getExp
 
 from .forms import SaleForm
 
@@ -27,7 +28,7 @@ def sale(datea,dateb):
     stocka=sm.Stock.objects.all().filter(date=datea)
     stockb=sm.Stock.objects.all().filter(date=dateb)
     receits = sm.Receits.objects.all().filter(date=datea)
-    exps= em.Exp.objects.all().filter(cdate=datea)
+    exps= em.Exp.objects.all().filter(date=datea)
     ttl = exps.aggregate(Sum('amount'))
     sales=[]
     salet=0;
@@ -102,7 +103,6 @@ def mrpview(request):
         return render(request,'outsale/mrp.html',sales)
     sales = getoutsale()
     return render(request,'outsale/mrp.html',sales)
-
 
 def dailysheet(request):
     if request.method == "POST":

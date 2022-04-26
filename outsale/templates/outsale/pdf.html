@@ -4,12 +4,25 @@
   <head>
     <meta charset="utf-8">
     <title>sale</title>
-  </head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <style>
+  </head><style>
+  * {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
 
     h2{
-      font-size:30px;
+      font-size:20px;
       color:green;
     }
     th,td{
@@ -20,7 +33,7 @@
       color:red;
       font-size:15px;
     }
-    #bname{
+    #bname,#name{
       text-align:left;
       width:'130';
     }
@@ -31,6 +44,10 @@
     #amt{
       text-align:right;
       color:blue;
+    }
+    #eamt{
+      text-align:right;
+      width: "30";
     }
   </style>
   <body>
@@ -67,9 +84,15 @@
               <td>{{sale.rc}}</td>
               {%endif%}
               <td>{{sale.cs}}</td>
+
+              {% if sale.s is 0 %}
+              <td colspan="3"></td>
+              {%else%}
               <td id='sale'>{{sale.s}}</td>
               <td id='rate'>{{sale.brand.bprice}}</td>
               <td id='amt'>{{sale.amt}}/-</td>
+              {%endif%}
+
             </tr>
             <tr>
               <th colspan="8"><hr></th>
@@ -78,55 +101,44 @@
             <tr>
               <th colspan="6"></th>
               <th>total :</th>
-              <th id='amt'>{{salet}}/-</th>
+              <th id='amt'><h3>{{salet}}/-</h3></th>
 
             </tr>
           </table>
         </div>
         <hr>
-        <br>
-        <br><br>
-            <table style="width:40">
-              <tr>
-                <th colspan="2"><h2>Expenditure</h2></th>
-              </tr>
-              <tr>
-                <th colspan="2"><hr></th>
-              </tr>
-              <tr>
-                <th>Name</th>
-                <th>Amount</th>
-              </tr>
-              <tr>
-                <th colspan="2"><hr></th>
-              </tr>
-              {% for exp in exps %}
-              <tr>
-                <td>{{exp.name}}</td>
-                <td id='price'>{{exp.amount}}/-</td>
-              </tr>
-              {% endfor %}
-              <tr>
-                <th></th>
-                <th ><hr></th>
-              </tr>
-              <tr>
-                <th>Total</th>
-                <th id='amt'><h5><br>{{ttl.amount__sum}}</h5></th>
-              </tr>
-              <tr>
-                <th colspan="2"><hr></th>
-              </tr>
-            </table>
 
-            <br><br><br>
-            <h4>Cashier Sign:</h4>
-            <br><br>
-            <br><br>
-            <h4>Licensee Sign:</h4>
-            <br><br>
-            <h3>designed and developed by MS Creation</h3>
 
+            <table>
+                  <tr>
+                    <th colspan="2"><h2>Expenditure</h2></th>
+                  </tr>
+                  <tr>
+                    <th id="name">Name</th>
+                    <th id="name">Amount</th>
+                  </tr>
+
+                  {% for exp in exps %}
+                  <tr>
+                    <td id="name">{{exp.name}}</td>
+                    <td id='eamt'>{{exp.amount}}/-</td>
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                    <td></td>
+                    <td><hr></td>
+                  </tr>
+                  <tr>
+                    <th>Total</th>
+                    <th id='amt'>{{ttl.amount__sum}}</th>
+                  </tr>
+
+                </table>
+
+
+
+
+        </div>
 
 
 

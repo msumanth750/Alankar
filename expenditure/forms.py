@@ -4,4 +4,4 @@ from .models import Exp
 class ExpForm(forms.Form):
     class meta():
         model = Exp
-        fields =['name','amount','note']
+        fields =['date','name','amount','note']
