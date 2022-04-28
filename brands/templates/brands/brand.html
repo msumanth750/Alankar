@@ -33,8 +33,14 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <div class="card">
      <!--Card content-->
+     <div class="time" hx-get="get-time/" hx-trigger="every 2s" hx-swap="innerhtml" >
+       {%include 'brands/time.html'%}
+
+     </div>
      <div class="card-body">
        <div class="form-outline">
           <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search" />
@@ -104,6 +110,7 @@
     </div>
   </div>
 </div>
+
 
 
 

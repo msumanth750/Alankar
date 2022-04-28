@@ -36,7 +36,7 @@ class ExpDetail(DetailView):
 class Expupdate(UpdateView):
     model = Exp
     fields =['name','amount','note']
-    success_url = reverse_lazy('exp')
+    success_url = reverse_lazy('expadd')
     template_name = 'expenditure/update.html'
 
 class ExpDelete(DeleteView):
@@ -44,10 +44,10 @@ class ExpDelete(DeleteView):
     template_name = 'expenditure/delete.html'
     context_object_name = 'exp'
     pk_url_kwarg = 'pk'
-    success_url = reverse_lazy('exp')
+    success_url = reverse_lazy('expadd')
 
 def expAdd(request):
-    expa=Exp.objects.all().order_by('-date')
+    exps =Exp.objects.all().order_by('-udate')[:10]
     if request.method=="POST":
         date=strtodate(request.POST['date'])
         name=request.POST['name']
@@ -56,8 +56,8 @@ def expAdd(request):
         e = Exp(date=date,name=name,amount=amt,note=note)
         e.save()
         exp,ttl =getExp(date)
-        return render(request,'expenditure/expadd.html',{'exps':exp,'ttl':ttl,'date':date})
-    return render(request,'expenditure/expadd.html',{'expa':expa})
+        return render(request,'expenditure/expadd.html',{'exps':exp,'ttl':ttl,'date':date.strftime('%Y-%m-%d')})
+    return render(request,'expenditure/expadd.html',{'exps':exps})
 
 def getExp(date):
     exps = Exp.objects.all().filter(date=date).order_by('-amount')

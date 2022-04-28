@@ -1,17 +1,40 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <style media="screen">
-      table, th, td {
-  border: 2px white;
-  font-size: 25px;
-}
-    </style>
-  </head>
-
-  <body>
+{%extends 'ui/bootstrap4.html'%}
+{%load static%}
+{%block content%}
+<style media="screen">
+  th,td{
+    font-size:15px;
+  }
+  th{
+    color:#d580ff;
+  }
+  h2{
+  font-family: 'Times New Roman', serif;
+  text-align: center;
+  font-size: 35px;
+  color: #b30000;
+  }
+  p{
+    padding: 0;
+    margin: 0;
+  }
+</style>
+<div class="row">
+  <div class="col-lg-9">
+    <h2>Alankar Restaurant and Bar Sale Table</h2>
+  </div>
+  <div class="col-lg-3">
+    <h2>{{sales.date}}</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-9">
+    <center>
+      <p>Nainagar,near KU X-Road</p>
+      <p>Gopalpur Nainagar junction,Warangal,506001.</p>
+    </center>
+  </div>
+  <div class="col-lg-3">
     <form class="" action="{%url 'dailysheet'%}" method="post">
       {%csrf_token%}
       <div class="input-group input-group-sm mb-3">
@@ -19,25 +42,24 @@
           <span class="input-group-text" id="inputGroup-sizing-sm">Start Date</span>
         </div>
         <input type="date" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+        <button class="btn btn-sm" type="submit" name="button">submit</button>
       </div>
-      <button type="submit" name="button">submit</button>
     </form>
+  </div>
+</div>
+
     <div class="row">
-      <div class="col-5">
-        <table>
+      <div class="col-lg-6">
+        <table class="table table-sm">
           <tr>
-            <th colspan="7"><h2>Alankar Restaurant and Bar Sale Table</h2></th>
-            <th id='price'>{{date}}</th>
-          </tr>
-          <tr>
-            <th>ID</th>
-            <th>BRAND</th>
-            <th>OS</th>
-            <th>RC</th>
-            <th>CS</th>
-            <th>SALE</th>
-            <th>RATE</th>
-            <th>AMT</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>os</th>
+            <th>rc</th>
+            <th>cs</th>
+            <th>Sale</th>
+            <th>Rate</th>
+            <th>Amount</th>
 
           </tr>
         {%for sale in sales.sales %}
@@ -45,35 +67,28 @@
           <td>{{sale.brand.ncode}}</td>
           <td>{{sale.brand.name}}</td>
           {%if sale.os is 0%}
-          <td>-</td>
+          <td></td>
           {%else%}
           <td>{{sale.os}}</td>
           {%endif%}
           {%if sale.rc is 0%}
-          <td>-</td>
+          <td></td>
           {%else%}
           <td>{{sale.rc}}</td>
           {%endif%}
           {%if sale.cs is 0%}
-          <td>-</td>
+          <td></td>
           {%else%}
           <td>{{sale.cs}}</td>
           {%endif%}
           {%if sale.s is 0%}
-          <td>-</td>
+          <td colspan="3"></td>
           {%else%}
           <td>{{sale.s}}</td>
-          {%endif%}
-          {%if sale.s is 0 %}
-          <td>-</td>
-          {%else%}
           <td id='price'>{{sale.brand.bprice}}</td>
-          {%endif%}
-          {%if sale.amt is 0%}
-          <td>-</td>
-          {%else%}
           <td id='price'>{{sale.amt}}</td>
           {%endif%}
+
         </tr>
         {%endfor%}
         <tr>
@@ -84,15 +99,9 @@
         </tr>
       </table>
       </div>
-      <div class="col-7">
-        <div class="card">     <!--Card content-->
-             <div class="card-body">
-               <table id="stock">
+      <div class="col-lg-6 ">
+          <table class="table table-sm">
                  <tr>
-                   <th colspan="7"><h2>Alankar Restaurant and Bar OutSale Table</h2></th>
-                  </tr>
-                 <tr>
-                   <th>Date</th>
                    <th>code</th>
                    <th>Brand</th>
                    <th>Quantity</th>
@@ -102,7 +111,6 @@
                  </tr>
                  {% for sale in outsales.sales %}
                  <tr>
-                   <td>{{sale.date}}</td>
                    <td>{{sale.brand.ncode}}</td>
                    <td>{{sale.brand.name}}</td>
                    <td>{{sale.qty}}</td>
@@ -119,11 +127,47 @@
 
                  </tr>
                </table>
-               <h2>sale :</h2>
-             </div>
-           </div>
+
+          <table class="table table-sm">
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th colspan="3"></th>
+            </tr>
+            {%for exp in sales.exps%}
+            <tr>
+              <td>{{exp.name}}</td>
+              <td id='price'>{{exp.amount}}</td>
+              <td colspan="3"></td>
+
+            </tr>
+            {%endfor%}
+            <tr>
+              <th>total</th>
+              <th id='price'>{{sales.ttl.amount__sum}}/-</th>
+              <th colspan="3"></th>
+
+            </tr>
+          </table>
+          <table class="table table-sm">
+            <tr>
+              <th colspan="">Sales Report</th>
+              <th>{{sales.date}}</th>
+            </tr>
+            <tr>
+              <td>Sale:</td>
+              <td>{{sales.salet}}</td>
+            </tr>
+            <tr>
+              <td>OutSale Discount:</td>
+              <td>{{outsales.discount}}</td>
+            </tr>
+            <tr>
+              <td>Expenditure :</td>
+              <td>{{sales.ttl.amount__sum}}</td>
+            </tr>
+          </table>
       </div>
     </div>
-</body>
 
-</html>
+{%endblock%}

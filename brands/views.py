@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from .models import Brand
 from .forms import Brandform
 
+import datetime
+import random
 # Create your views here.
 def getTotalBrands():
     brands = Brand.objects.all()
@@ -40,3 +42,11 @@ def editbrand(request,pk):
             form.save(commit=True)
             return redirect('/brands/')
     return render(request,'brands/update.html',{'form':form})
+
+def gettime(request):
+    context = {
+    'time' :datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
+    'day':datetime.datetime.today().strftime('%A')
+
+    }
+    return render(request,'brands/time.html',context)

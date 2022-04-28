@@ -2,6 +2,11 @@
 {%load static%}
 {%block title%}Exp-Add{%endblock%}
 {% block content%}
+<style media="screen">
+  th,td,input,label{
+    font-size:14px;
+  }
+</style>
     <a class="btn btn-sm btn-light mt-2 ml-4" href="{%url 'exp'%}">Go Back</a>
     <div class="row m-3">
         <div class="col-lg-4">
@@ -9,11 +14,11 @@
             {%csrf_token%}
             <div class="form-outline">
               <label class="form-label" for="formControlSm">Date</label>
-              <input type="date" id="formControlSm" name="date" class="form-control form-control-sm" />
+              <input type="text" id="formControlSm" name="date" class="form-control form-control-sm" value="{{date}}" />
            </div>
            <div class="form-outline">
              <label class="form-label" for="formControlSm">Name</label>
-             <input type="text" id="formControlSm" name="name" class="form-control form-control-sm" />
+             <input type="text" id="formControlSm" name="name" class="form-control form-control-sm"  />
           </div>
           <div class="form-outline">
             <label class="form-label" for="formControlSm">Amount</label>
@@ -29,31 +34,52 @@
 
           </form>
         </div>
-        <div class="col-lg-4">
-          <table class="table">
+        <div class="col-lg-6">
+          <input class="form-control" id="myInput" type="text" placeholder="Search..">
+          <br>
+          {%if exps%}
+          <table class="table table-sm">
+
             <tr>
+              <th>Date</th>
               <th>Name</th>
               <th>Amount</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
-            {%for exp in exps%}
-              <tr>
-                <td>{{exp.name}}</td>
-                <td>{{exp.amount}}</td>
-                <td><a href="{{exp.id}}/update">Edit</a></td>
-                <td><a href="{{exp.id}}/delete">Delete</a></td>
-              </tr>
-            {%endfor%}
+            <tbody id="myTable">
+              {%for exp in exps%}
+                <tr>
+                  <td>{{exp.date}}</td>
+                  <td>{{exp.name}}</td>
+                  <td>{{exp.amount}}</td>
+                  <td><a href="{{exp.id}}/update">Edit</a></td>
+                  <td><a href="{{exp.id}}/delete">Delete</a></td>
+                </tr>
+              {%endfor%}
+            </tbody>
+
             <tr>
-              <th></th>
+              <th colspan="4"></th>
               <th>{{ttl.amount__sum}}</th>
             </tr>
           </table>
+          {%endif%}
+
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-2">
 
         </div>
 
     </div>
+    <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 {% endblock %}

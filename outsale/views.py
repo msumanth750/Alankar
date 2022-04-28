@@ -113,6 +113,7 @@ def dailysheet(request):
         context ={
         'sales':sales,
         'outsales':outsales,
+        'date':datea,
         }
         return render(request,'outsale/salesheet.html',context)
     sales=sale(datetime.date(2022,4,11),datetime.date(2022,4,13))
