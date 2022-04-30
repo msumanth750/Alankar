@@ -18,13 +18,21 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('ui/',include('ui.urls')),
+
     path('',include('stock.urls')),
+
     path('exp/',include('expenditure.urls')),
+
     path('loans/',include('loans.urls')),
+
     path('outsale/',include('outsale.urls')),
+
     path('brands/',include('brands.urls')),
+
     path('pdf/',include('core.urls')),
+    
     path('credits/',include('credits_debits.urls')),
 
 

@@ -7,4 +7,14 @@
 {%endblock%}
 
 {% block side %}
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0 mr-0">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">
+      <div class="time" hx-get="get-time/" hx-trigger="every 2s" hx-swap="innerhtml">
+        {%include 'brands/time.html'%}
+      </div>
+    </a>
+  </li>
+
+</ul>
 {%endblock%}

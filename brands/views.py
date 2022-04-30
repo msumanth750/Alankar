@@ -25,7 +25,10 @@ def getTotalBrands():
 def brandtable(request):
     form = Brandform()
     brands = Brand.objects.all().order_by('ncode')
-    return render(request,'brands/brand.html',{'brands':brands,'form':form})
+    context = getTotalBrands()
+    context['brands']=brands
+    context['form']=form
+    return render(request,'brands/brand.html',context)
 
 def addbrand(request):
     if request.method=='POST':

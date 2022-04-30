@@ -2,137 +2,178 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{%block cssblock%}
+h2{
+font-family: 'Times New Roman', serif;
+text-align: center;
+font-size: 35px;
+color: #b30000;
+}
+{%endblock%}
 
 {% block mainpage %}
-<style>
-  .stock {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  .stock td, #stock th {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  .stock tr:nth-child(even){background-color: #f2f2f2;}
-  .stock tr:hover {background-color: #ddd;}
-  .stock th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color:  #ddccff;
-    color: black;
-    font-size: 15px;
-  }
-  #price{
-    text-align: right;
-    color: red;
-  }
-</style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
-
 <div class="card">
-     <!--Card content-->
-     <div class="time" hx-get="get-time/" hx-trigger="every 2s" hx-swap="innerhtml" >
-       {%include 'brands/time.html'%}
-
-     </div>
-     <div class="card-body">
-       <div class="form-outline">
-          <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search" />
-          <label class="form-label" for="typeText">Enter The Brand Name</label>
-        </div>
-       <table id="myTable" class="stock">
-         <tr>
-           <th colspan="8"><h2>Alankar Restaurant and Bar Brand Table</h2></th>
-         </tr>
-         <tr>
-           <th>ID</th>
-           <th>Name</th>
-           <th>S.Code</th>
-           <th>Type</th>
-           <th>Price</th>
-           <th>Qty</th>
-           <th>MRP</th>
-           <th>Bar Price</th>
-         </tr>
-         {% for brand in brands %}
-         <tr>
-           <td><a href="edit/{{brand.id}}">{{brand.ncode}}</a></td>
-           <td>{{brand.name}}</td>
-           <td>{{brand.scode}}</td>
-           <td>{{brand.type}}</td>
-           <td>{{brand.price}}</td>
-           <td>{{brand.qty}}</td>
-           <td>{{brand.mrp}}</td>
-           <td>{{brand.bprice}}</td>
-         </tr>
-         {%endfor%}
-       </table>
-     </div>
-   </div>
+  <!--Card content-->
+  <div class="card-body">
+    <table id="myTable" class="table table-sm ">
+      <tr>
+        <th colspan="8">
+          <h2>{{company}} Brand Table</h2>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <div class="form-outline">
+            <input type="text" id="myID" onkeyup="myID()" class="form-control" placeholder="Search by ID" />
+          </div>
+        </th>
+        <th colspan="3">
+          <div class="form-outline">
+            <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search by Brand" />
+          </div>
+        </th>
+        <th colspan="3">
+          <div class="form-outline">
+            <input type="text" id="myScode" onkeyup="scode()" class="form-control" placeholder="Search by Scode" />
+          </div>
+        </th>
+      </tr>
+      <tr class="">
+        <th class="text-center">ID</th>
+        <th class="text-left">Name</th>
+        <th class="text-left">S.Code</th>
+        <th class="text-center">Type</th>
+        <th class="text-right">Price</th>
+        <th class="text-right">Qty</th>
+        <th class="text-right">MRP</th>
+        <th class="text-right">Bar Price</th>
+      </tr>
+      {% for brand in brands %}
+      <tr>
+        <td class="text-center"><a href="edit/{{brand.id}}">{{brand.ncode}}</a></td>
+        <td class="text-left">{{brand.name}}</td>
+        <td class="text-left">{{brand.scode}}</td>
+        <td class="text-center">{{brand.type}}</td>
+        <td class="text-right">{{brand.price}}</td>
+        <td class="text-right">{{brand.qty}}</td>
+        <td class="text-right">{{brand.mrp}}</td>
+        <td class="text-right">{{brand.bprice}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+  </div>
+</div>
 {%endblock%}
 
 {% block side %}
 <div class="card">
   <!-- Button to Open the Modal -->
-  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal">
+  <table class="table table-sm">
+    <tr class="table-success">
+      <th colspan="3" class="text-center">Total Brands <a href="#" class="btn btn-sm btn-light ml-3">{{total}}</a></th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Liquor</td>
+      <td>{{l}}</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Beer</td>
+      <td>{{b}}</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Others</td>
+      <td>{{m}}</td>
+    </tr>
+  </table>
+  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#Addbrand">
     Add Brand
   </button>
 </div>
 <!-- The Modal -->
-<div class="modal" id="myModal">
+<div class="modal" id="Addbrand">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form class="" action="{% url 'addbrand' %}" method="post">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">New Brand Addition</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+      <form class="" action="{% url 'addbrand' %}" method="post">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">New Brand Addition</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
 
-      <!-- Modal body -->
-      <div class="modal-body">
+        <!-- Modal body -->
+        <div class="modal-body">
           {%csrf_token%}
           {{form|crispy}}
-      </div>
+        </div>
 
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="submit" name="button">submit</button>
-        <button type="submit" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-  </form>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" name="button">submit</button>
+          <button type="submit" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-
-
-
 {%endblock%}
 
 {%block jsblock%}
+
 function myFunction() {
+var input, filter, table, tr, td, i, txtValue;
+input = document.getElementById("myInput");
+filter = input.value.toUpperCase();
+table = document.getElementById("myTable");
+tr = table.getElementsByTagName("tr");
+for (i = 0; i < tr.length; i++) { td=tr[i].getElementsByTagName("td")[1]; if (td) { txtValue=td.textContent || td.innerText; if (txtValue.toUpperCase().indexOf(filter)> -1) {
+  tr[i].style.display = "";
+  } else {
+  tr[i].style.display = "none";
+  }
+  }
+  }
+  }
+
+  function scode() {
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
+  input = document.getElementById("myScode");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
+  for (i = 0; i < tr.length; i++) { td=tr[i].getElementsByTagName("td")[2]; if (td) { txtValue=td.textContent || td.innerText; if (txtValue.toUpperCase().indexOf(filter)> -1) {
+    tr[i].style.display = "";
+    } else {
+    tr[i].style.display = "none";
     }
-  }
-}
-{%endblock%}
+    }
+    }
+    }
+
+    function myID() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myID");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) { td=tr[i].getElementsByTagName("td")[0]; if (td) { txtValue=td.textContent || td.innerText; if (txtValue.toUpperCase().indexOf(filter)> -1) {
+      tr[i].style.display = "";
+      } else {
+      tr[i].style.display = "none";
+      }
+      }
+      }
+      }
+
+
+
+
+      {%endblock%}

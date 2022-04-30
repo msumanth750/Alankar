@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views import View
 
 from .models import Outsale
+from .forms import OutsaleForm
 
 from brands import models as bm
 from stock import models as sm
@@ -29,7 +30,7 @@ def sale(datea,dateb):
     stockb=sm.Stock.objects.all().filter(date=dateb)
     receits = sm.Receits.objects.all().filter(date=datea)
     exps= em.Exp.objects.all().filter(date=datea)
-    ttl = exps.aggregate(Sum('amount'))
+    ttl = int(0 if exps.aggregate(Sum('amount'))['amount__sum'] is None else exps.aggregate(Sum('amount'))['amount__sum'])
     sales=[]
     salet=0;
     cont={}
@@ -78,17 +79,15 @@ class PdfView(View):
         pdf = render_to_pdf('outsale/pdf.html',sale(datea,datea+datetime.timedelta(days=1)))
         return HttpResponse(pdf, content_type='application/pdf')
 
-
 # discountsales depends on date
 def getoutsale(datea=datetime.date(1,1,1)):
     if datea==datetime.date(1,1,1):
-        sales = Outsale.objects.all()
+        sales = Outsale.objects.all().order_by('-date')
         dis=gettotaloutsalediscount(sales)
     else:
         sales = Outsale.objects.all().filter(date=datea)
         dis=gettotaloutsalediscount(sales)
-    return {'sales':sales,'discount':dis}
-
+    return {'sales':sales,'discount':dis,'date':datea}
 
 def gettotaloutsalediscount(sales):
     discount= 0;
@@ -104,23 +103,36 @@ def mrpview(request):
     sales = getoutsale()
     return render(request,'outsale/mrp.html',sales)
 
+def outsaleAdd(request):
+    form = OutsaleForm()
+    if request.method == "POST":
+        form = OutsaleForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return render(request,'outsale/add.html',{'form':form,'sales':getoutsale()})
+
+def outsaleDelete(request,pk):
+    sale= Outsale.objects.get(id=pk)
+    sale.delete()
+    return redirect("/outsale/add")
+
 def dailysheet(request):
     if request.method == "POST":
         form = request.POST
         datea =strtodate(form['date'])
         sales=sale(datea,datea+datetime.timedelta(days=1))
         outsales = getoutsale(datea)
+        cc = sales['salet']-outsales['discount']-sales['ttl']
         context ={
         'sales':sales,
         'outsales':outsales,
         'date':datea,
+        'cc':cc,
+        'message' : 'Data Not Updated'
         }
         return render(request,'outsale/salesheet.html',context)
-    sales=sale(datetime.date(2022,4,11),datetime.date(2022,4,13))
-    outsales = getoutsale()
-    context ={
-    'sales':sales,
-    'outsales':outsales,
+    sales={
+    'salet':0
     }
-    print(sale,outsales)
-    return render(request,'outsale/salesheet.html',context)
+    message ="Please enter the date"
+    return render(request,'outsale/salesheet.html',{'sales':sales,'message':message})

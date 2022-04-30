@@ -1,0 +1,89 @@
+{% extends 'ui/bootstrap4.html'%}
+{% load crispy_forms_tags %}
+{% block content%}
+<style media="screen">
+  th,
+  td {
+    font-size: 15px;
+  }
+
+
+  th {
+    color: #9900e6;
+  }
+
+  h2 {
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+    font-size: 35px;
+    color: #b30000;
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+</style>
+<div class="row ">
+  <div class="col-lg-3">
+    <a class="btn btn-sm btn-danger mt-1" href="{%url 'mrpview'%}">Back</a>
+
+    <form class="mt-2" method="post">
+      {%csrf_token%}
+      {{form|crispy}}
+      <button type="submit" class="btn btn-sm btn-primary" name="button">Add Outsale</button>
+
+    </form>
+  </div>
+  <div class="col-lg-9">
+    <div class="card mt-5">
+      <div class="card-body">
+        <table class="table table-sm">
+          <tr>
+            <th colspan="6">
+              <div class="input-group input-group-sm mb-1">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>Date</th>
+            <th>Issued To</th>
+            <th>Brand</th>
+            <th class="text-center">Qty</th>
+            <th class="text-right">Sold Rate</th>
+            <th class="text-right">Discount</th>
+          </tr>
+          <tbody id="outsaleTable">
+            {%for sale in sales.sales%}
+            <tr>
+              <td>{{sale.date}}</td>
+              <td><a href="{%url 'outsaledelete' sale.id %}">{{sale.name|title}}</a></td>
+              <td>{{sale.brand.name|title}}</td>
+              <td class="text-center">{{sale.qty}}</td>
+              <td class="text-right">{{sale.price}}</td>
+              <td class="text-right">{{sale.dis}}</td>
+            </tr>
+            {%endfor%}
+          </tbody>
+          <tr>
+            <th colspan="5">Total</th>
+            <th>{{sales.discount}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+  $(document).ready(function() {
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#outsaleTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+{%endblock%}
