@@ -8,5 +8,4 @@ urlpatterns = [
     path('<str:pk>/detail',views.ExpDetail.as_view()),
     path('<str:pk>/update',views.Expupdate.as_view()),
     path('<str:pk>/delete',views.ExpDelete.as_view()),
-
     ]

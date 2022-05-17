@@ -3,100 +3,104 @@
 
 
 {% block mainpage %}
-  <style>
-    #stock {
-      font-family: Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-    #stock td, #stock th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-    #stock tr:nth-child(even){background-color: #f2f2f2;}
-    #stock tr:hover {background-color: #ddd;}
-    #stock th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color:  #ddccff;
-      color: black;
-      font-size: 15px;
-    }
-    h5{
-      color:green;
-    }
-    h2{
-      font-size:30px;
-      text-align:center;
-      color : black;
-      font-weight:bold;
-    }
+<style>
+  td,
+  th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  h2 {
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+    font-size: 25px;
+    color: #b30000;
+  }
+
+    {
+    text-align: right;
+  }
 </style>
+{%if receits%}
 <div class="card  mt-3 p-2">
   <div class="card">
-    <table id="stock">
+    <table class="table-table-sm">
       <tr>
 
-        <th colspan="3"><h2>Alankar Restaurant and Bar Stock Table</h2></th>
+        <th colspan="2">
+          <h2>Alankar Restaurant and Bar Stock Table</h2>
+        </th>
         {%if date%}
-        <th colspan="2"><h5><a href="{%url 'receitentry' date%}">{{date}}</a></h5></th>
+        <th colspan="1">
+          <h5><a href="{%url 'receitentry' date%}">{{date}}</a></h5>
+        </th>
         {%else%}
-        <th colspan="2"></th>
+        <th colspan="1"></th>
         {%endif%}
       </tr>
       <tr>
         <th>Date</th>
         <th>Brand Name</th>
         <th>Qty</th>
-        <th>Action</th>
-        <th>Action</th>
       </tr>
       {% for receit in receits %}
       <tr>
         <td>{{receit.date}}</td>
         <td>{{receit.brand.name}}</td>
-        <td>{{receit.qty}}</td>
-        <td>Edit<i class="far fa-edit"></i></td>
-        <td>Delete<i class="fas fa-minus"></i></td>
+        <td class="text-center">{{receit.qty}}</td>
       </tr>
       {%endfor%}
-
     </table>
   </div>
 </div>
+{%else%}
+<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+  <strong>Hi User,</strong> Please select Date and submit.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{%endif%}
 {% endblock %}
 
 {% block side %}
 
-  <div class="card mt-3">
-        <div class="card-body">
-          <form method="post">
+<div class="card mt-3">
+  <div class="card-body">
+    <form method="post">
 
-            <div class="input-group input-group-sm mb-1">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Date</span>
-              </div>
-              <input type="date" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            </div>
-            {% csrf_token %}
-            {%if not date %}
-                <button class="btn btn-sm btn-primary" type="submit" name="button">Search</button>
-            {%endif%}
-          </form>
-          <form  action="{%url 'receitpdf'%}" method="post">
-            {%csrf_token%}
-            <div class="input-group input-group-sm mb-1">
-              <input type="hidden" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{date}}" >
-            </div>
-            {%if date %}
-            <button class="btn btn-sm btn-secondary" type="submit" name="button">View Pdf</button>
-            <a class="btn btn-sm " href="/receits" type="" name="button">Clear</a>
-            {%endif%}
-
-          </form>
+      <div class="input-group input-group-sm mb-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Date</span>
         </div>
+        <input type="date" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+      </div>
+      {% csrf_token %}
+      {%if not date %}
+      <button class="btn btn-sm btn-primary" type="submit" name="button">Search</button>
+      {%endif%}
+    </form>
+    <form action="{%url 'receitpdf'%}" method="post">
+      {%csrf_token%}
+      <div class="input-group input-group-sm mb-1">
+        <input type="hidden" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{date}}">
+      </div>
+      {%if date %}
+      <button class="btn btn-sm btn-secondary" type="submit" name="button">View Pdf</button>
+      <a class="btn btn-sm " href="/receits" type="" name="button">Clear</a>
+      {%endif%}
+
+    </form>
   </div>
+</div>
 
 {% endblock %}
 {% block jsblock%}

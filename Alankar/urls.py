@@ -32,8 +32,7 @@ urlpatterns = [
     path('brands/',include('brands.urls')),
 
     path('pdf/',include('core.urls')),
-    
-    path('credits/',include('credits_debits.urls')),
 
+    path('credits/',include('credits_debits.urls')),
 
 ]

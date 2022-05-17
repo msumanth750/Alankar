@@ -3,81 +3,86 @@
 
 
 {% block mainpage %}
-  <style>
-    #stock {
-      font-family: Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-    #stock td, #stock th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-    #stock tr:nth-child(even){background-color: #f2f2f2;}
-    #stock tr:hover {background-color: #ddd;}
-    #stock th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color:  #ddccff;
-      color: black;
-      font-size: 15px;
-    }
-    h5{
-      color:green;
-    }
-    h2{
-      text-align:center;
-      color : red;
-    }
+<style>
+  td,
+  th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    padding-top: 10px;
+    padding-bottom: 12px;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  h2 {
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+    font-size: 25px;
+    color: #b30000;
+  }
+
+    {
+    text-align: right;
+  }
 </style>
+{%if stocks%}
+<div class="card mt-3">
+  <table class="table table-sm">
+    <tr>
 
-  <div class="card mt-3">
-    <table id="stock">
-      <tr>
+      <th colspan="2">
+        <h2>{{company}} Stock Table</h2>
+      </th>
+      <th colspan="1">
+        <h5><a href="{% url 'stockentry' date %}">{{date}}</a></h5>
+      </th>
 
-        <th colspan="3"><h2>Alankar Restaurant and Bar Stock Table</h2></th>
-        <th colspan="2"><h5><a href="{% url 'stockentry' date %}">{{date}}</a></h5></th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th>Brand Name</th>
+      <th>Opening Balance</th>
+    </tr>
+    {% for stock in stocks %}
+    <tr>
+      <td>{{stock.date}}</td>
+      <td>{{stock.brand.name}}</td>
+      <td class="text-center">{{stock.obal}}</td>
+    </tr>
+    {%endfor%}
 
-      </tr>
-      <tr>
-        <th>Date</th>
-        <th>Brand Name</th>
-        <th>Opening Balance</th>
-        <th>Action</th>
-        <th>Action</th>
-      </tr>
-      {% for stock in stocks %}
-      <tr>
-        <td>{{stock.date}}</td>
-        <td>{{stock.brand.name}}</td>
-        <td>{{stock.obal}}</td>
-        <td>Edit<i class="far fa-edit"></i></td>
-        <td>Delete<i class="fas fa-minus"></i></td>
-      </tr>
-      {%endfor%}
-
-    </table>
-  </div>
+  </table>
+</div>
+{%else%}
+<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+  <strong>Hi User,</strong> Please select Date and submit.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{%endif%}
 
 {% endblock %}
 
 {% block side %}
-    <div class="card mt-3">
-        <div class="card-body">
-          <form method="post">
+<div class="card mt-3">
+  <div class="card-body">
+    <form method="post">
 
-            <div class="input-group input-group-sm mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Date</span>
-              </div>
-              <input type="date" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            </div>
-            {% csrf_token %}
-                <button class="btn btn-sm btn-primary" type="submit" name="button">Search</button>
-          </form>
+      <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Date</span>
         </div>
-    </div>
+        <input type="date" name="date" required id="id_date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+      </div>
+      {% csrf_token %}
+      <button class="btn btn-sm btn-primary" type="submit" name="button">Search</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
 {% block jsblock%}
 {%endblock%}
