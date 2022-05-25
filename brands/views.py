@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Brand
 from .forms import Brandform
-
 import datetime
 import random
 # Create your views here.
@@ -20,6 +19,27 @@ def getTotalBrands():
         'm':miscs.count(),
     }
     return context;
+
+class Brands():
+    """Brands object for using brand model"""
+    def __init__(self, arg):
+        super(Brands, self).__init__()
+        self.arg = arg
+    def getBrands(*args,**kwargs):
+        brands = Brand.objects.all().order_by('-ncode')
+        liquors = brands.filter(type='L')
+        beers = brands.filter(type='B')
+        miscs = brands.filter(type='M')
+        context = {
+            'total':brands.count(),
+            'Liquors':brands.filter(type='L').order_by('ncode'),
+            'beers':brands.filter(type='B'),
+            'miscs':brands.filter(type='M'),
+            'l':liquors.count(),
+            'b':beers.count(),
+            'm':miscs.count(),
+        }
+        return context;
 
 
 def brandtable(request):

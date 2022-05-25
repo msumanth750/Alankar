@@ -14,6 +14,8 @@
   <!-- Material Design Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.7.0/htmx.min.js" integrity="sha512-etqA0KankuxrlSeZDYycQBY/D/KWZn0YZjlsjAo7kCEBTy1gg+DwmR6icxtOpqDBOzm2P00/lSIXEu7K+zvNsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
   {% block links %}{% endblock%}
   <style media="screen">
     body {
@@ -44,8 +46,13 @@
 
 <body>
   <style media="screen">
-  {%block cssblock%}
-  {%endblock%}
+    {
+      %block cssblock%
+    }
+
+      {
+      %endblock%
+    }
   </style>
   <div class="container-fluid">
     <!--Navbar -->
@@ -85,7 +92,14 @@
 
 <script type="text/javascript">
   {
-    {% block jsblock %} {% endblock %}
+    {
+      %
+      block jsblock %
+    } {
+      %
+      endblock %
+    }
   }
 </script>
+
 </html>

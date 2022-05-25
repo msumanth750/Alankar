@@ -35,6 +35,7 @@
   <!-- Place this tag in your head or just before your close body tag. -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   {%block jsblock%}{%endblock%}
+
 </head>
 
 <body class="">
@@ -53,50 +54,50 @@
           </a>
         </div>
         <ul class="nav">
-          <li class="active ">
+          <li class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
             <a href="index">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'sales' %}active{% endif %}">
             <a href="sales">
               <i class="tim-icons icon-atom"></i>
               <p>Sales</p>
             </a>
           </li>
 
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'expenses' %}active{% endif %}">
             <a href="expenses">
               <i class="tim-icons icon-bell-55"></i>
               <p>Expenses</p>
             </a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'loans' %}active{% endif %}">
             <a href="loans">
               <i class="tim-icons icon-single-02"></i>
               <p>Loans</p>
             </a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'brands' %}active{% endif %}">
             <a href="brands">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>Brands</p>
             </a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'partners' %}active{% endif %}">
             <a href="partners">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>Partners</p>
             </a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
             <a href="profile">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>Profile</p>
             </a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'staff' %}active{% endif %}">
             <a href="staff">
               <i class="tim-icons icon-world"></i>
               <p>Staff</p>
@@ -125,6 +126,7 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
           <div class="collapse navbar-collapse" id="navigation">
+            {% if user.is_authenticated %}
             <ul class="navbar-nav ml-auto">
               <li class="search-bar input-group">
                 <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split"></i>
@@ -166,6 +168,7 @@
               </li>
               <li class="separator d-lg-none"></li>
             </ul>
+            {% endif %}
           </div>
         </div>
       </nav>
@@ -268,7 +271,7 @@
 
         $sidebar_responsive = $('body > .navbar-collapse');
         sidebar_mini_active = true;
-        white_color = false;
+        white_color = true;
 
         window_width = $(window).width();
 
@@ -358,6 +361,7 @@
 
         });
 
+
         $('.light-badge').click(function() {
           $('body').addClass('white-content');
         });
@@ -368,6 +372,7 @@
       });
     });
   </script>
+
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
