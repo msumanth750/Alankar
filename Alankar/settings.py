@@ -82,6 +82,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Alankar.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = ['https://django-server-production-0439.up.railway.app','http://*.127.0.0.1']
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
