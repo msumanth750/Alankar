@@ -24,7 +24,7 @@ STATIC_DIR = os.path.join(BASE_DIR,'static')
 SECRET_KEY = 'x3ct&+y@zf-0=+v_s@^7!n!4-45cui#pct&t)vqmxc6pixqdl('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,7 +82,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Alankar.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = ['https://django-server-production-0439.up.railway.app','http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-9770c.up.railway.app','http://*.127.0.0.1']
 
 
 # Database
