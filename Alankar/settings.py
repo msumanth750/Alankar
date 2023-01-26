@@ -82,7 +82,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Alankar.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-9770c.up.railway.app','http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-9770c.up.railway.app','http://*.127.0.0.1','*']
 
 
 # Database

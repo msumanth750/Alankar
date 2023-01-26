@@ -6,4 +6,5 @@ urlpatterns = [
     path('add/',views.addbrand,name='addbrand'),
     path('edit/<pk>',views.editbrand,name='editbrand'),
     path('get-time/',views.gettime),
+    path('addmodel/',views.modelsave,name='modelsave')
 ]

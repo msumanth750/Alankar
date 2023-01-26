@@ -34,5 +34,6 @@ urlpatterns = [
     path('pdf/',include('core.urls')),
 
     path('credits/',include('credits_debits.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
 
 ]

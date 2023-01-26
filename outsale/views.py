@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 
-from .models import Outsale
 from .forms import OutsaleForm
 
+from .models import Outsale
 from brands import models as bm
 from stock import models as sm
 from expenditure import models as em
@@ -23,7 +23,6 @@ import datetime
 def strtodate(date):
     tpl = tuple(map(int, date.split('-')))
     return datetime.date(tpl[0], tpl[1], tpl[2])
-
 
 def sale(datea, dateb):
     form = SaleForm()
@@ -90,8 +89,6 @@ class PdfView(View):
         return HttpResponse(pdf, content_type='application/pdf')
 
 # discountsales depends on date
-
-
 def getoutsale(datea=datetime.date(1, 1, 1)):
     if datea == datetime.date(1, 1, 1):
         sales = Outsale.objects.all().order_by('-date')

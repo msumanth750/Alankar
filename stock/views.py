@@ -8,7 +8,14 @@ from django.http import HttpResponse
 from brands import models as mb
 
 import datetime
-# Create your views here.
+
+class StockView():
+    def getStock(date=None):
+        if date==None:
+            return Stock.objects.all().order_by('brand__ncode')
+        else:
+            return Stock.objects.filter(date).order_by('brand__ncode')
+
 def strtodate(date):
     tpl=tuple(map(int,date.split('-')))
     return datetime.date(tpl[0],tpl[1],tpl[2]);
